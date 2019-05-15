@@ -1,0 +1,12 @@
+const assert = require('assert');
+const env = require('../lib/env');
+const a = env.parseEnv('A=secret\nexport B="quoted"\nA=changed\n# C=ignore\n');
+assert.deepStrictEqual(a.keys, ['A','B']);
+assert.deepStrictEqual(a.duplicates, ['A']);
+const b = env.parseEnv('A=\nC=');
+const diff = env.difference(a,b);
+assert.deepStrictEqual(diff.missing,['C']);
+assert.deepStrictEqual(diff.extra,['B']);
+assert.deepStrictEqual(diff.duplicateActual,['A']);
+assert.deepStrictEqual(env.parseEnv('INVALID : x').invalidLines,[1]);
+console.log('env parser tests passed');
