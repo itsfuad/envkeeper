@@ -10,3 +10,4 @@ assert.deepStrictEqual(diff.extra,['B']);
 assert.deepStrictEqual(diff.duplicateActual,['A']);
 assert.deepStrictEqual(env.parseEnv('INVALID : x').invalidLines,[1]);
 console.log('env parser tests passed');
+assert.deepStrictEqual(env.parseEnv('\uFEFFTOKEN=x').keys, ['TOKEN']);
