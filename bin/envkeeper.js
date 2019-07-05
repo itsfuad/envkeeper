@@ -7,7 +7,7 @@ function read(path) {
   catch (err) { console.error('Cannot read ' + path + ': ' + err.message); process.exit(2); }
 }
 const args = process.argv.slice(2);
-if (args.length < 2) { console.error('Usage: envkeeper ACTUAL.env TEMPLATE.env [--json]'); process.exit(2); }
+if (args.length < 2 || (args.length > 2 && (args.length !== 3 || args[2] !== '--json'))) { console.error('Usage: envkeeper ACTUAL.env TEMPLATE.env [--json]'); process.exit(2); }
 const diff = env.difference(env.parseEnv(read(args[0])), env.parseEnv(read(args[1])));
 if (args.indexOf('--json') !== -1) console.log(JSON.stringify(diff, null, 2));
 else {
